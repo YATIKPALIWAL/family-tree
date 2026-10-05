@@ -228,7 +228,7 @@ function TreeFlow() {
     }
 
     try {
-      const res = await axios.post('http://127.0.0.1:8000/api/person', body);
+      const res = await axios.post('http://family-tree-backend-cygyj.onrender.com/api/person', body);
       
       if (relationMode === 'parent' && activePerson) {
         const created = res.data?.person;
@@ -237,7 +237,7 @@ function TreeFlow() {
         if (newParentId) {
           const formUpdate = new FormData();
           formUpdate.append('parent_id', String(newParentId));
-          await axios.put(`http://127.0.0.1:8000/api/person/${activePerson.id}/add-parent`, formUpdate);
+          await axios.put(`http://family-tree-backend-cygyj.onrender.com/api/person/${activePerson.id}/add-parent`, formUpdate);
         }
       }
 
