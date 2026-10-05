@@ -1,15 +1,11 @@
 import io
 import uuid
-import numpy as np
-from PIL import Image
 from typing import List, Optional
 from fastapi import FastAPI, UploadFile, File, Form, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from supabase import create_client, Client
 import json
-import uuid
-from typing import Optional
 
 
 app = FastAPI(title="Family Tree API")
