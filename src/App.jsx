@@ -129,7 +129,7 @@ function TreeFlow() {
 
   const fetchFamilyTree = async () => {
     try {
-      const res = await axios.get('http://127.0.0.1:8000/api/family-tree');
+      const res = await axios.get(' https://family-tree-backend-cgyj.onrender.com');
       const persons = res.data.persons || [];
 
       const rawNodes = persons.map((p) => ({
@@ -180,7 +180,7 @@ function TreeFlow() {
   const handleDeletePerson = async (id, name) => {
     if (!window.confirm(`क्या आप सच में "${name}" को हटाना चाहते हैं?`)) return;
     try {
-      await axios.delete(`http://127.0.0.1:8000/api/person/${id}`);
+      await axios.delete(` https://family-tree-backend-cgyj.onrender.com/api/person${id}`);
       fetchFamilyTree();
     } catch (error) {
       alert('सदस्य हटाने में त्रुटि आई!');
