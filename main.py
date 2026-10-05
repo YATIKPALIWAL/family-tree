@@ -1,6 +1,5 @@
 import io
 import uuid
-import cv2
 import numpy as np
 from PIL import Image
 from typing import List, Optional
