@@ -21,7 +21,7 @@ app.add_middleware(
 
 # === Supabase क्रेडेंशियल्स यहाँ डालो ===
 SUPABASE_URL = "https://wuokvcjqlvyiohdleilk.supabase.co"
-SUPABASE_KEY = " eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Ind1b2t2Y2pxbHZ5aW9oZGxlaWxrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTA0MTczNzYsImV4cCI6MjEwNTk5MzM3Nn0.NpMly9RdgEcE0EouQZ8Sa8aGm4Q9tWIQJ5TJHCVLNhs"
+SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Ind1b2t2Y2pxbHZ5aW9oZGxlaWxrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTA0MTczNzYsImV4cCI6MjEwNTk5MzM3Nn0.NpMly9RdgEcE0EouQZ8Sa8aGm4Q9tWIQJ5TJHCVLNhs"
 supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
 
 
