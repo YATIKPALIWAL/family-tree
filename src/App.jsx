@@ -5,14 +5,17 @@ import ReactFlow, {
   applyNodeChanges, 
   applyEdgeChanges, 
   Handle, 
-  Position,
-  MarkerType,
+  Position, 
+  MarkerType, 
   ReactFlowProvider 
 } from 'reactflow';
 import 'reactflow/dist/style.css';
 import axios from 'axios';
 import dagre from 'dagre';
 import './App.css';
+
+// Render बैकएंड का सही HTTPS URL
+const API_BASE_URL = 'https://family-tree-backend-cgyj.onrender.com';
 
 const nodeWidth = 200;
 const nodeHeight = 80;
@@ -67,13 +70,13 @@ const PersonNode = ({ data, id }) => {
       {/* 🔼 ऊपर वाला हरा बिंदु: माता-पिता से कनेक्शन के लिए */}
       <Handle 
         type="target" 
-        id="top-target"
+        id="top-target" 
         position={Position.Top} 
         style={{ background: '#10b981', width: 12, height: 12, top: -6 }} 
       />
       <Handle 
         type="source" 
-        id="top-source"
+        id="top-source" 
         position={Position.Top} 
         style={{ background: '#10b981', width: 12, height: 12, top: -6 }} 
       />
@@ -91,7 +94,7 @@ const PersonNode = ({ data, id }) => {
       {/* 🔽 नीचे वाला नीला बिंदु: संतान की तरफ कनेक्शन के लिए */}
       <Handle 
         type="source" 
-        id="bottom-source"
+        id="bottom-source" 
         position={Position.Bottom} 
         style={{ background: '#2563eb', width: 12, height: 12, bottom: -6 }} 
       />
@@ -129,7 +132,7 @@ function TreeFlow() {
 
   const fetchFamilyTree = async () => {
     try {
-      const res = await axios.get(' https://family-tree-backend-cgyj.onrender.com');
+      const res = await axios.get(`${API_BASE_URL}/api/family-tree`);
       const persons = res.data.persons || [];
 
       const rawNodes = persons.map((p) => ({
@@ -143,7 +146,6 @@ function TreeFlow() {
         position: { x: 0, y: 0 },
       }));
 
-      // यही है वह rawEdges जहाँ हमने साफ़ तीर (Arrow) जोड़ा है
       const rawEdges = [];
       persons.forEach((p) => {
         if (p.parent_ids && Array.isArray(p.parent_ids)) {
@@ -180,7 +182,7 @@ function TreeFlow() {
   const handleDeletePerson = async (id, name) => {
     if (!window.confirm(`क्या आप सच में "${name}" को हटाना चाहते हैं?`)) return;
     try {
-      await axios.delete(` https://family-tree-backend-cgyj.onrender.com/api/person${id}`);
+      await axios.delete(`${API_BASE_URL}/api/person/${id}`);
       fetchFamilyTree();
     } catch (error) {
       alert('सदस्य हटाने में त्रुटि आई!');
@@ -228,7 +230,7 @@ function TreeFlow() {
     }
 
     try {
-      const res = await axios.post('https://family-tree-backend-cygyj.onrender.com/api/person', body);
+      const res = await axios.post(`${API_BASE_URL}/api/person`, body);
       
       if (relationMode === 'parent' && activePerson) {
         const created = res.data?.person;
@@ -237,7 +239,7 @@ function TreeFlow() {
         if (newParentId) {
           const formUpdate = new FormData();
           formUpdate.append('parent_id', String(newParentId));
-          await axios.put(`https://family-tree-backend-cygyj.onrender.com/api/person/${activePerson.id}/add-parent`, formUpdate);
+          await axios.put(`${API_BASE_URL}/api/person/${activePerson.id}/add-parent`, formUpdate);
         }
       }
 
@@ -307,9 +309,9 @@ function TreeFlow() {
                 : 'नया परिवार सदस्य जोड़ें'}
             </h3>
             <p style={{ margin: '0 0 16px 0', fontSize: '13px', color: '#64748b' }}>
-              {relationMode === 'parent'
+              {relationMode === 'parent' 
                 ? 'यह सदस्य ऊपर जुड़ेगा और नीचे की ओर तीर बनेगा।'
-                : relationMode === 'child'
+                : relationMode === 'child' 
                 ? 'यह सदस्य नीचे जुड़ेगा और तीर इस तरफ आएगा।'
                 : 'यह एक स्वतंत्र सदस्य के रूप में जुड़ेगा।'}
             </p>
